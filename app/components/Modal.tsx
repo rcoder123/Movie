@@ -1,12 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {
-    ScrollView,
-    StyleSheet,
-    Text,
-    useWindowDimensions,
-    View,
-} from 'react-native';
+import {ScrollView, Text, useWindowDimensions, View} from 'react-native';
 import Animated, {useCode, clockRunning} from 'react-native-reanimated';
 
 import Poster from '@components/Poster';
@@ -16,6 +10,7 @@ import {createValue, spring, springBack} from '@utils/spring';
 import type MovieType from '@app/types/Movie';
 import type PositionType from '@app/types/Position';
 
+import styles from './modalStyle';
 const {
     Value,
     cond,
@@ -45,7 +40,6 @@ interface ModalProps {
 
 // Uppercases the first letter of each word in the title
 function titleCase(value: string): string {
-    if (value === undefined || value === null) return '';
     let title = '';
     let shouldUpcase = true;
     for (let i = 0; i < value.length; i++) {
@@ -151,16 +145,5 @@ const Modal = ({movie, position, close}: ModalProps) => {
         </SwipeToClose>
     );
 };
-
-const styles = StyleSheet.create({
-    content: {
-        padding: 16,
-        flex: 1,
-    },
-    paragraph: {
-        fontSize: 24,
-        marginBottom: 16,
-    },
-});
 
 export default Modal;

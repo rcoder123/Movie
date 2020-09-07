@@ -1,11 +1,9 @@
-import memoize from 'memoize-one';
 import React, {useRef} from 'react';
-import {StyleSheet, useWindowDimensions, View} from 'react-native';
+import {useWindowDimensions, View} from 'react-native';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
-import Animated, {cond, eq, color} from 'react-native-reanimated';
-import {colors} from '@utils/colors';
+import Animated, {cond, eq} from 'react-native-reanimated';
 import Poster from './Poster';
-
+import getStyles from './movieStyle';
 import type MovieType from '@app/types/Movie';
 import type PositionType from '@app/types/Position';
 
@@ -48,7 +46,10 @@ const Movie = ({activeMovieId, index, movie, open}: MovieProps) => {
     };
 
     console.log('RENDER MOVIE', movie.name);
-    console.log('MOVIE', movie);
+    //Put a check if we don't fine moive name then we will return to null
+    if (movie.name === undefined || movie.name === null) {
+        return null;
+    }
 
     return (
         <TouchableWithoutFeedback onPress={startTransition}>
@@ -63,61 +64,5 @@ const Movie = ({activeMovieId, index, movie, open}: MovieProps) => {
         </TouchableWithoutFeedback>
     );
 };
-
-const getStyles = memoize((width: number, height: number) =>
-    StyleSheet.create({
-        container: {
-            width: width - 32,
-            height: height / 2,
-            alignSelf: 'center',
-            borderRadius: 8,
-            marginVertical: 8,
-            shadowColor: colors.black,
-            shadowOffset: {
-                width: 0,
-                height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
-            borderWidth: 1,
-            borderColor: colors.border,
-        },
-        content: {
-            position: 'absolute',
-            padding: 16,
-            paddingTop: 20,
-            borderRadius: 8,
-            backgroundColor: colors.backgroundTransparent,
-            width: '100%',
-        },
-        name: {
-            color: 'white',
-            fontSize: 34,
-            lineHeight: 41,
-            fontWeight: 'bold',
-            textShadowColor: colors.black,
-            textShadowOffset: {
-                width: 1,
-                height: 2,
-            },
-            textShadowRadius: 2,
-        },
-        reviews: {
-            color: 'white',
-            fontSize: 18,
-            textShadowColor: colors.black,
-            textShadowOffset: {
-                width: 1,
-                height: 2,
-            },
-            textShadowRadius: 2,
-        },
-        image: {
-            ...StyleSheet.absoluteFillObject,
-            width: undefined,
-            height: undefined,
-        },
-    }),
-);
 
 export default Movie;
