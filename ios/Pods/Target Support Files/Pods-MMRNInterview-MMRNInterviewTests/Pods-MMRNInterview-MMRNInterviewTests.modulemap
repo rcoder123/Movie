@@ -1,0 +1,6 @@
+module Pods_MMRNInterview_MMRNInterviewTests {
+  umbrella header "Pods-MMRNInterview-MMRNInterviewTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
